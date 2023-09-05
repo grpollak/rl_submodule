@@ -1,0 +1,25 @@
+\begin{defnbox}\nospacing
+  \begin{defn}[States\hfill\tc{black}{$\Ssp=\left\{s_1,\ldots,s_{\idxn}\right\}$}]\label{defn:markov_states}\leavevmode\\
+    A state $s_{\idxi}$ encodes all information of the current configuration of a system.
+  \end{defn}
+\end{defnbox}
+\begin{defnbox}\nospacing
+  \begin{defn}[\newline Markovian Property\bslash Memorylessness]\label{defn:markovian_property}\leavevmode\\
+    Let  $(\samplespace, \Fsp, \Prob)$ be a probability space with a filtration
+    $\left(\Fsp_{s},s\in I\right)$, for some index set\cref{defn:index_set}; and let $\left(S,\Ssp\right)$ be a measurable space\cref{defn:measurable_space}.\\
+    A $\left(S,\Ssp)\right)$-valued stochastic process $X=\left\{X_{t}:\samplespace\to S\right\}_{t\in I}$ adapted to the
+    filtration is said to possess the Markov property if:
+    \begin{align}
+      \Prob \left(X_{t}\in\event|\Fsp_{s}\right)=\Prob\left(X_{t}\in\event|X_{s}\right)&&
+                                                                                          \begin{aligned}
+                                                                                            &\forall\event\in\Ssp \\[-1\jot]
+                                                                                            & s,t\in I&\text{s.t. } s<t
+                                                                                          \end{aligned}
+    \end{align}
+  \end{defn}
+\end{defnbox}
+%%% TeX-command-extra-options: "-shell-escape"
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../../../../formulary"
+%%% End:

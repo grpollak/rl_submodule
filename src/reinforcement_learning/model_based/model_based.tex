@@ -1,0 +1,17 @@
+\begin{propositionbox}\nospacing
+  \begin{proposition}[Model Based RL]\label{proposition:model_based_rl}\leavevmode\\
+    Try to learn the MDP \cref{defn:markov_decision_process_mdp} by:
+    \begin{circlelistnosep}
+      \item Estimating
+    \begin{itemizenosep}
+      \item the transition probabilities\cref{defn:markov_decision_process_transition_probability}\hfill$\prob_{\action}\left(s_{\idxi},s_{\idxj}\right)$
+      \item the reward function\cref{defn:mdp_reward}\hfill$\reward(\belief_{t},\action_{t})$
+    \end{itemizenosep}
+    \item Optimizing the policy of the estimated MDP
+    \end{circlelistnosep}
+  \end{proposition}
+\end{propositionbox}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../../../../formulary"
+%%% End:

@@ -1,0 +1,49 @@
+\begin{defnbox}\nospacing
+  \begin{defn}[State Variables\hfill\tcblack{$\xvec$}]\label{defn:state_variables}\leavevmode\\
+    Is the smallest set of variables $\left\{x_{1},\ldots,x_{\idxn}\right\}$ that
+    are fully capable of describing the state of our system which is usually \textit{hidden}
+    and not directly observable.
+  \end{defn}
+\end{defnbox}
+\begin{defnbox}\nospacing
+  \begin{defn}[State Space\hfill\tcblack{$\Xsp$}]\label{defn:state_space}\leavevmode\\
+    Is the $\idxn$-dimensional space spanned by the state variables\cref{defn:state_variable}:
+    \begin{align}
+      \xvec=\bmat{x_{1}&\Cdots&x_{\idxn}}^{\T}\in\Ssp\subseteq\R^{\idxn}
+    \end{align}
+  \end{defn}
+\end{defnbox}
+\begin{defnbox}\nospacing
+  \begin{defn}[\newline Input\bslash Control Variables\hfill\tcblack{$\uvec\in\Asp$}]\label{defn:output_variables_state_observations}\leavevmode\\
+    Are a variables $\uvec$ of the \textit{transition model}\cref{defn:state_space_transition_model} that
+    influence the propagation of to the state variables $\xvec$.
+  \end{defn}
+\end{defnbox}
+\begin{defnbox}\nospacing
+  \begin{defn}[\hfill\tcblack{$\yvec\in\Osp$}\newline Output\bslash Measurment Variables\bslash State Observations]\label{defn:output_variables_state_observations}\leavevmode\\
+    Are a variables $\yvec$ that are directly related to the state space $\xvec$ and are usually observable by us.
+  \end{defn}
+\end{defnbox}
+\begin{defnbox}\nospacing
+  \begin{defn}[Transition Model\hfill$\tcblack{f}$]\label{defn:state_space_transition_model}\leavevmode\\
+    Describes the transition of the state $\xvec$ over time.
+  \end{defn}
+\end{defnbox}
+\begin{defnbox}\nospacing
+  \begin{defn}[\newline Measurment/Output/Observation Model\hfill$\tcblack{h}$]\label{defn:state_space_measurment_output_observation_model}\leavevmode\\
+    Describes the mapping of the state $\xvec$ onto the output $\yvec$.
+  \end{defn}
+\end{defnbox}
+\begin{defnbox}\nospacing
+  \begin{defn}[\blackrb{Discrete} State Space Model]\label{defn:discrete_state_space_model}
+    \begin{align}
+      \xvec^{\idxk+1}&=f(t,\xvec^{\idxk},\uvec^{\idxk})&&t=1,\ldots,\idxK\\[-1\jot]
+      \yvec^{\idxk}&=h(t,\xvec^{\idxk},\uvec^{\idxk})
+    \end{align}
+  \end{defn}
+\end{defnbox}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../../../../formulary"
+%%% End:

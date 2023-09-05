@@ -1,0 +1,50 @@
+\begin{algorithmbox}\nospacing
+  \begin{algo}[\hfill\tc{attributes}{[}Brafman \& Tennenholz '02\tc{attributes}{]}\newline R-max Algorithm]\leavevmode
+    \begin{algorithmic}[1]
+      \item[] \imp{Initialize every state with}:
+      \begin{align}
+        \widehat{\reward}(\state_{t},\action)=R_{\max}&&\widehat{\prob}_{\action}(X_{t+1}|X_{t}=\state_{\idxi},\action)=1
+      \end{align}
+      \item[] Set min.\ number $\Delta$ of observations for policy update
+      \item[] \imp{Compute} Policy $\policy_{1}$ of the MDP\cref{defn:markov_decision_process_mdp} using $(\widehat{\prob},\widehat{\reward})$:
+      \begin{align*}
+        \policy_{t}
+      \end{align*}
+      \For{$\idxk=1,\ldots,\idxK$}
+        \State Choose $\action=\policy_{t}(x_{t})$ and observe $(\state,\reward)$
+        \State Calculate:
+        \begin{align}
+          N_{\xvec_{t},\action}+=1&&\reward(x_{t},\action)+=\reward(x_{t},\action)
+        \end{align}
+        \begin{align}
+          N_{\xvec_{t+1}|\xvec_{t},\action}+=1
+        \end{align}
+        \If{$\idxk$==$\Delta$}
+            \State Re-calculate (based on \cref{eq:estimating_transitions,eq:estimating_rewards}):
+            \begin{align*}
+                \widehat{\reward}(\state_{t},\action)=R_{\max}&&\widehat{\prob}_{\action}(X_{t+1}|X_{t}=\state_{\idxi},\action)=1
+            \end{align*}
+            \Statex and update the policy $\policy_{t}=\policy_{t}(\widehat{\prob},\widehat{\reward})$
+        \EndIf
+      \EndFor
+    \end{algorithmic}
+  \end{algo}
+\end{algorithmbox}
+\begin{notebox}[Note]\nospacing
+  Other ways of updating the policy at certains times exist.
+\end{notebox}
+\begin{sectionbox}[Problems]\nospacing
+ \begin{conslist}
+   \item Memory:
+     for all $\action\in\Asp$, $\xvec_{t+1},\xvec_{t}\in\Xsp$
+           we need to store $\widehat{\prob}_{\action}(x_{t+1}|x_{t},\action)$ and $\widehat{\reward}(\state_{t},\action)$ which
+           results in $\abs{\Ssp}^{2}\abs{\Asp}$ (for dense MDP).
+           \item Computation Time:
+           We need to calculate the $\policy_{t}$ using policy (\cref{subsubsubsec:policy_iteration}) or value iteration (\cref{subsubsubsec:value_iteration})
+           $\abs{\Asp}\cdot\abs{\Ssp}$ whenever we update out policy.
+ \end{conslist}
+\end{sectionbox}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../../../../../formulary"
+%%% End:

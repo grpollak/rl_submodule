@@ -1,0 +1,44 @@
+\begin{defnbox}\nospacing
+  \begin{defn}[\newline Optimizing Agent\bslash{} Decision Making Policy\hfill
+   \tc{black}{$\policy\left(s_{\idxi}\right)$}]\label{defn:optimizing_agent_decision_maker}\leavevmode\\
+    Is a policy on how to choose an action $\action\in\Asp$ based on a objective/value function\cref{defn:mdp_value_function}
+    and can be deterministic or randomized:
+    \begin{align}
+      \policy:\Ssp\mapsto \Asp&&\text{or}&&\policy:\Ssp\mapsto\Prob(\Asp)
+    \end{align}
+  \end{defn}
+\end{defnbox}
+\begin{defnbox}\nospacing
+  \begin{defn}[Discounting Factor\hfill\tc{black}{$\gammac$}]\label{defn:mdp_discounting_factor}\leavevmode\\
+    Is a factor $\gammac\in[0,1)$ that signifies that future rewards are less valuable then current rewards.
+  \end{defn}
+\end{defnbox}
+\begin{explanationbox}
+  \begin{explanation}[Definition~\ref{defn:mdp_discounting_factor}]
+    The reason for the discounting factor is that we may for example not even survive long
+    enough to obtain future payoffs.
+  \end{explanation}
+\end{explanationbox}
+\begin{defnbox}\nospacing
+  \begin{defn}[Expected Discounted Value\hfill\tc{black}{$\valfu[J](\policy)$}]\label{defn:expected_discounted_value}\leavevmode\\
+    Is the \textit{discounted} expected (reward) of the whole markov process:
+    \begin{align}
+      \valfu[J](\policy)=\Expect_{\policy} \left[\sum_{t=0}^{\infty}\gammac^{t}\reward \left(X_{t},\policy\left(X_{t}\right)\right)\right]
+    \end{align}
+  \end{defn}
+\end{defnbox}
+\begin{defnbox}\nospacing
+  \begin{defn}[
+    \newline Value Function\hfill\tc{black}{$\valfu^{\policy}(x)$}]\label{defn:mdp_value_function}\leavevmode\\
+    Is the \textit{discounted} expected reward\cref{defn:mdp_reward} of the whole markov process given an inital state $X_{0}=x$:
+    \begin{align}
+      \valfu^{\policy}(x)&=\valfu[J](\policy|X_{0}=x)\\[-1\jot]
+      &=\Expect_{\policy}\left[\left.\sum_{t=0}^{\infty}\gammac^{t}\reward \left(X_{t},\policy\left(X_{t}\right)\right)\right|X_{0}=x\right]\\[-1\jot]
+    \end{align}
+  \end{defn}
+\end{defnbox}
+%%% Local Variables:
+%%% TeX-command-extra-options: "-shell-escape"
+%%% mode: latex
+%%% TeX-master: "../../../../../formulary"
+%%% End:

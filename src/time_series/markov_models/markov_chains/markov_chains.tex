@@ -1,0 +1,221 @@
+\begin{defnbox}
+  \begin{defn}[Markov Chain]\label{defn:markov_chain}\leavevmode\\
+  \begin{minipage}[t]{0.6\textwidth}
+    Is a sequence of random variables $\left\{X_{i}\right\}_{i\in\Tsp}$\cref{defn:stochastic_random_chain}
+    that processes the markovian property\cref{defn:markovian_property} i.e.\ each state $X_{t}$
+    depend only on the previous state $X_{t-1}$:
+  \end{minipage}
+  \begin{minipage}[t]{0.3\textwidth}
+    \begin{figure}[H]
+      \vspace{-0.7cm}
+      \centering{
+        \def\svgwidth{100pt}
+        \resizebox{\linewidth}{!}{\input{rl_submodule/src/time_series/markov_models/markov_chains/figures/markov.pdf_tex}}
+      }
+    \end{figure}
+  \end{minipage}
+    \scalematho[0.93]{
+    \vspace{-0.4cm}
+    \begin{align*}
+      \Prob(X_{t}=x|X_{t-1}=x_{t-1},\ldots,X_{1}=x_{1})=\Prob(X_{t}=x|X_{t-1}=x_{t-1})
+    \end{align*}}
+  \end{defn}
+\end{defnbox}
+\begin{defnbox}\nospacing
+  \begin{defn}[Initial Distribution\hfill\tc{black}{$\qvec_{0}$}]\label{defn:initial_distribution}
+    Describes the initial distribution of states:
+    \begin{align}
+      &&&q_{0}\left(s_{\idxi}\right)=\Prob \left(X_{0}=s_{\idxi}\right)&&\forall s_{\idxi}\in S\nonumber \\[-1\jot]
+      &\iff&&\qvec_{0}=\bmat{q_{0}\left(s_{1}\right)&\cdots&q_{0}\left(s_{\idxn}\right)}
+    \end{align}
+  \end{defn}
+\end{defnbox}
+\begin{defnbox}\nospacing
+  \begin{defn}[Transition Probability\hfill$\tc{black}{\prob_{\idxj\idxi}(t)}$]\label{defn:markov_transition_probability}\leavevmode\\
+    is the probability of a random variable $X_{t}$ in state $s_{\idxi}$ to transition into state $s_{\idxj}$:
+    \begin{align}
+      \prob_{\idxi\idxj}(t)=\Prob \left(X_{t+1}=s_{\idxj}|X_{t}=s_{\idxi}\right)&&\forall s_{\idxi},s_{\idxj}\in S\label{eq:markov_transition_probability}
+    \end{align}
+  \end{defn}
+\end{defnbox}
+\begin{defnbox}\nospacing
+  \begin{defn}[\tc{black}{$\idxn^{\text{th}}$} Transition Probability\hfill$\tc{black}{\prob^{(\idxn)}_{\idxj\idxi}(t)}$]\label{defn:nthmarkov_transition_probability}\leavevmode\\
+    denotes the probability of reaching state $s_{\idxj}$ from state $s_{\idxi}$ in $\idxn$ steps:
+    \begin{align}
+      \prob^{(\idxn)}_{\idxi\idxj}(t)=\Prob \left(X_{t+\idxn}=s_{\idxj}|X_{t}=s_{\idxi}\right)&&\forall s_{\idxi},s_{\idxj}\in S\label{eq:markov_transition_probability}
+    \end{align}
+  \end{defn}
+\end{defnbox}
+\begin{defnbox}\nospacing
+  \begin{defn}[Transition Matrix $\tc{black}{\transitionmatrix(t)}$]\label{defn:transition_matrix}\leavevmode\\
+    \begin{minipage}[c]{0.65\textwidth}
+    The transition probabilities \cref{eq:markov_transition_probability} can be represented by a
+    \textit{row-stochastic matrix}\cref{defn:stochastic_matrices} $\transitionmatrix(t)$ where the
+    $\idxi^{th}$ row represents the transition probabilities for the $\idxi^{th}$ state $s_{\idxi}$ i.e.
+    \end{minipage}\hfill
+    \begin{minipage}[t]{0.3\textwidth}
+		\begin{tikzpicture}[baseline=-0.5ex,
+							every left delimiter/.style={xshift=.55em},
+              every right delimiter/.style={xshift=-.55em}
+							]
+        \hspace{-3pt}
+        \matrix (M1) [
+        fill=BurntOrange!50,
+				inner sep=0pt, nodes={inner sep=.3em},
+				column sep=3pt, row sep=1pt,
+				matrix of math nodes, nodes in empty cells, right delimiter={]},left delimiter={[}]
+				{
+				0.3 & 0.7\\
+				0.4 & 0.6\\
+			};
+			\node [above=-1pt of M1] {\imp{To} $\idxj$};
+			\node [xshift=3pt,left of=M1, rotate=90] (shing1) {\imp{From} $\idxi$};
+		\end{tikzpicture}
+    \end{minipage}
+  \end{defn}
+\end{defnbox}
+\begin{corbox}\nospacing
+  \begin{cor}[Row stochastic matrices and Graphs]
+    Row stochastic matrices\cref{defn:stochastic_matrices} represent graphs
+    where the outgoing edges must sum to one:
+    \begin{align}
+      \sum\delta^{+}(s_{\idxi})=1
+    \end{align}
+  \end{cor}
+\end{corbox}
+\subsubsection{Simulating Markov Chains}\label{subsubsec:simulating_markov_chains}
+\begin{corbox}\nospacing
+  \begin{cor}[\hfill\tc{black}{\normalfont{proof~\ref{proof:cor:realization_of_a_markov_chain}}}
+    \newline Realization of a Markov Chain]\label{cor:realization_of_a_markov_chain}
+    \begin{align*}
+      \Prob\left(X_{0}=x_{0},\ldots,X_{N}=x_{N}\right)=q_{0}\left(x_{1}\right)\sum_{n=1}^{N}\prob_{n-1,n}(t)
+    \end{align*}
+  \end{cor}
+\end{corbox}
+\begin{algorithmbox}\nospacing
+  \begin{algo}[Forward Sampling]\leavevmode
+\begin{algorithmic}[5]
+  \State\imp{Input}:\qquad$\qvec(\xvec_0)$\quad and\quad$\transitionmatrix$
+  \State\imp{Output}: $\Prob\left(X_{0:N}\right)$
+  \State Sample $x_{0}\distas\Prob\left(X_{0}\right)$
+  \For{$\idxj=1,\ldots,\idxn$}
+    \begin{align*}
+      x_{\idxj}\distas\Prob(X_{\idxj}|X_{\idxi[j-1]}=x_{\idxi[j-1]})
+    \end{align*}
+  \EndFor
+\end{algorithmic}
+\end{algo}
+\end{algorithmbox}
+\subsubsection{State Distributions}\label{subsubsec:state_distributions}
+\begin{defnbox}\nospacing
+  \begin{defn}[\newline Probability Distribution of the States\hfill\tc{black}{$\qvec_{n+1}$}]\label{defn:probability_distribution_of_the_states}
+    \begin{align}
+      q_{n+1}\left(s_{\idxj}\right)&=\Prob \left(X_{n+1}=s_{\idxj}\right)\hspace{2cm}\forall s_{\idxi}\in S\nonumber\\[-1\jot]
+      &=\sum_{\idxi=1}^{\idxn}\Prob\left(X_{n}=s_{\idxi}\right)\Prob\left(X_{n+1}=s_{\idxj}|X_{n}=s_{\idxi}\right)\nonumber\\[-1\jot]
+      &=\sum_{\idxi=1}^{\idxn}q_{n}\left(s_{\idxi}\right)\prob_{\idxi,\idxj}(t)
+    \end{align}
+    \begin{align*}
+      \qvec_{n+1}&=\bmat{q_{n+1}\left(s_{\idxj[1]}\right)&\cdots&q_{n+1}\left(s_{\idxj[n]}\right)}\\[-1\jot]
+                                   &=\qvec_{n}\transitionmatrix(t)\\[-1\jot]
+     &\scalemath[.9]{=\bmat{q_{n}\left(s_{\idxi[1]}\right)&\cdots&q_{n}\left(s_{\idxi[n]}\right)}
+      \bmat{\prob_{\idxi[1],\idxj[1]} & \prob_{\idxi[1],\idxj[2]}&\Cdots&\prob_{\idxi[1],\idxj[n]}\\
+            \prob_{\idxi[2],\idxj[1]} & \prob_{\idxi[2],\idxj[2]}&\Cdots&\prob_{\idxi[2],\idxj[n]}\\
+            \Vdots                 & \Vdots                & \Ddots      & \Vdots         \\
+            \prob_{\idxi[n],\idxj[1]} & \prob_{\idxi[n],\idxj[2]}&\Cdots&\prob_{\idxi[n],\idxj[n]}\\
+      }(t)}
+    \end{align*}
+  \end{defn}
+\end{defnbox}
+\begin{corbox}\nospacing
+  \begin{cor}[\hfill\proofref{proof:cor:time-homogeneous_markov_transition_probabilities}\newline Time-homogeneous Markov Transition Probabilities]\label{cor:time-homogeneous_markov_transition_probabilities}
+    \begin{align}
+      \qvec_{n+1}=\qvec_{0}\transitionmatrix^{n+1}
+    \end{align}
+  \end{cor}
+\end{corbox}
+\begin{defnbox}\nospacing
+  \begin{defn}[Stationary Distribution]\label{defn:markov_chain_stationary_distribution}\leavevmode\\
+    A markov chain has a stationary distribution if it satisfies:
+    \begin{align*}
+      \lim_{N\to\infty}q_{N}\left(s_{\idxi}\right)=\lim_{N\to\infty}\Prob \left(X_{N}=s_{\idxi}\right)=\pi_{\idxi}&&\forall s_{\idxi}\in S
+    \end{align*}
+    \begin{align}
+      \lim_{N\to\infty}\qvec_{N}=\bmat{\pi_{1}&\cdots&\pi_{n}}\quad\iff\quad\qvec=\qvec\transitionmatrix(N)
+    \end{align}
+  \end{defn}
+\end{defnbox}
+\begin{corbox}\nospacing
+  \begin{cor}[Existence of Stationary Distributions]\label{cor:existence_of_stationary_distributions}
+    A Markov Chain has a stationary distribution if and only if at least one state is \textit{positive recurrent}!
+  \end{cor}
+\end{corbox}
+\todo[inline]{add matrix version with eigenvector}
+\todo[inline]{add recurrent and transient states}
+\subsubsection{Properties of States}\label{subsubsec:states}
+\begin{defnbox}\nospacing
+  \begin{defn}[Absorbing State\bslash Sink]\label{defn:absorbing_state}
+    Is a state $s_{\idxi}$ that once entered cannot be left anymore:
+    \begin{align}
+      \prob^{(\idxn)}_{\idxi\idxj}(t)=\delta_{\idxi\idxj}=
+      \begin{cases}
+        1&\text{if }\idxi=\idxj\\
+        0&\text{else}
+      \end{cases}
+    \end{align}
+  \end{defn}
+\end{defnbox}
+\begin{defnbox}\nospacing
+  \begin{defn}[Accessible State\hfill \tc{black}{$s_{\idxi}\rightarrow s_{\idxj}$}]\label{defn:accessible_state}\leavevmode\\
+    A state $s_{\idxj}$ is accessible from state $s_{\idxi}$ iff:
+    \begin{align}
+      \exists\idxn:\quad\prob^{(\idxn)}_{\idxi\idxj}(t)>0
+    \end{align}
+  \end{defn}
+\end{defnbox}
+\begin{defnbox}\nospacing
+  \begin{defn}[Communicating States\hfill \tc{black}{$s_{\idxi}\leftrightarrow s_{\idxj}$}]\label{defn:communicating_states}
+    \leavevmode\\
+    Two states $s_{\idxj}$ and $s_{\idxi}$ are communicating iff:
+    \begin{align}
+      \exists\idxn_{1}:\quad\prob^{(\idxn_{1})}_{\idxi\idxj}(t)>0&&\land&&\exists\idxn_{2}:\quad\prob^{(\idxn_{2})}_{\idxj\idxi}(t)>0
+    \end{align}
+  \end{defn}
+\end{defnbox}
+\begin{defnbox}\nospacing
+  \begin{defn}[Periodicity of States]\label{defn:periodicity_of_states}
+    A state $s_{\idxi}$ has period $\idxk$ if any return to state $s_{\idxi}$ must occur in multiples of $\idxk$ time steps.\\
+    In other words $\idxk$ is the \textit{greatest common divisor}
+    of the number of transitions by which state $s_{\idxi}$ can be reached, starting from itself:
+    \begin{align}
+      \idxk=\gcd\{\idxn>0:\prob^{(\idxn)}_{\idxi\idxi}=\Prob \left(X_{n}=s_{\idxi}\mid X_{0}=s_{\idxi}\right)>0\}
+    \end{align}
+  \end{defn}
+\end{defnbox}
+\begin{defnbox}\nospacing
+  \begin{defn}[Aperiodic State\hfill$\tc{black}{\idxk=1}$]\label{defn:aperiodic_state}\leavevmode\\
+    Is a state $s_{\idxi}$ with periodicity\cref{defn:periodicity_of_states} of one $\Leftrightarrow\idxk=1$
+  \end{defn}
+\end{defnbox}
+\begin{corbox}\nospacing
+  \begin{cor}
+    A state $s_{\idxi}$ is aperiodic if there exist two consecutive numbers $\idxk$ and $\idxk+1$
+    s.t.\ the chain can be in state $s_{\idxi}$ at both time steps $\idxk$ and $\idxk+1$.
+  \end{cor}
+\end{corbox}
+\begin{corbox}\nospacing
+  \begin{cor}[Absorbing State]\label{cor:absorbing_state}
+    An absorbing state is an aperiodic state.
+  \end{cor}
+\end{corbox}
+\begin{explanationbox}
+  \begin{explanation}[Defintion~\ref{defn:aperiodic_state}]
+    Returns to state $s_{\idxi}$ can occur at irregular times i.e.\ the state is not predictable.\\
+    In other words we cannot predict if the state will be revisited in multiples of $\idxk$ times.
+  \end{explanation}
+\end{explanationbox}
+
+%%% TeX-command-extra-options: "-shell-escape"
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../../../../../formulary"
+%%% End:

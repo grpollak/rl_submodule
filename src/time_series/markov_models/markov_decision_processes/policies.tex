@@ -1,0 +1,17 @@
+\begin{sectionbox}\nospacing
+  \imp{Question} how should we choose the $\policy$?
+  \imp{Idea} compute $\valfu[J](\policy)$ for \textit{every possible} policy:
+  \begin{align}
+    \policy^{*}=\argmax\valfu[J](\policy)
+  \end{align}
+  \imp{Problem} this is unfortunately infeasible as there exist $m^{n}=\abs{\Asp}^{\abs{\Ssp}}$ policies that
+  we need to calculate the value for.
+\end{sectionbox}
+\begin{notebox}[Note]\nospacing
+  The problem is that $\valfu[J]$/$\valfu^{\policy}$ depend on $\policy$ but if we do not know $\policy$ yet we cannot compute those.
+\end{notebox}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-command-extra-options: "-shell-escape"
+%%% TeX-master: "../../../../../formulary"
+%%% End:

@@ -1,0 +1,27 @@
+\begin{defnbox}\nospacing
+  \begin{defn}[\hfill\tc{black}{$\left(\Ssp,\Asp,\Osp,\transitionprob_{\action},\emissionProb,R_{\action}\right)$}
+    \newline Partially Observable Markov Decision Process]\label{defn:partially_observable_markov_decision_process_mdp}\leavevmode\\
+    A \rb{POMDP} is a markov decision process\cref{defn:markov_decision_process_mdp} with hidden markov states\cref{defn:hidden_markov_model_hmm}.
+    It is characterized by the 6-tuple of:
+    \begin{circlelistnosep}
+        \item States\cref{defn:markov_states}\hfill$\Ssp=\left\{s_{1},\ldots,s_{\idxn}\right\}$
+        \item Actions\cref{defn:markov_actions}\hfill$\Asp/\Asp_{s_{\idxj}}=\left\{\action_{1},\ldots,\action_{\idxm}\right\}$
+        \item Observations\cref{defn:markov_observations}\hfill$\Osp/\Osp_{s_{\idxj}}=\left\{\observation_{1},\ldots,\observation_{\idxm}\right\}$
+        \item Transition Probabilities\cref{defn:markov_decision_process_transition_probability}\hfill$\prob_{\action}\left(s_{\idxi},s_{\idxj}\right)$
+        \item Emission/Output Probabilities\cref{defn:output_probabilities}\hfill$\emissionprob_{\idxi\idxj}(t)$
+        \item Rewards\cref{defn:mdp_reward}\hfill$\reward_{\action}(s_{\idxi},s_{\idxj})$
+    \end{circlelistnosep}
+        \centering{
+            \resizebox{\linewidth}{!}{\input{rl_submodule/src/time_series/markov_models/partially_observable_markov_decision_processes/figures/tikz/pomdp.tex}}
+        }
+  \end{defn}
+\end{defnbox}
+\begin{explanationbox}
+  \begin{explanation}\leavevmode\\
+    Now our agent has only some indirect noisy observation of true state.
+  \end{explanation}
+\end{explanationbox}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../../../../../formulary"
+%%% End:

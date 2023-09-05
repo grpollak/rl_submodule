@@ -1,0 +1,15 @@
+\begin{proofbox}\nospacing
+  \begin{proof}Defintion~\ref{defn:pomdp_state_update}\label{proof:defn:pomdp_state_update}
+    Directly by definition \ref{defn:posterior_distribution_update_step}
+    and its corresponding proof \ref{proof:defn:posterior_distribution_update_step} with additional action $\action_{t}$:
+    \begin{align*}
+      b_{t+1}(\state_{\idxi})&=\Prob(X_{t+1}=\state_{\idxi}|y_{t+1})\\[-1\jot]
+      &=\frac{1}{Z}\Prob(y_{1:t+1}|\state_{\idxi})\sum_{\idxj=1}\overbrace{\underbrace{\Prob(X_{t}=\state_{\idxj}|y_{1:t})}_{\belief_{t}(\state_{\idxj})}\Prob(\state_{\idxi}|\state_{\idxj})}^{\Prob(X_{t+1}=\state_{\idxi}|y_{1:t})}
+    \end{align*}
+  \end{proof}
+\end{proofbox}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../../../../../formulary"
+%%% End:

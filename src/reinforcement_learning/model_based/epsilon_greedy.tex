@@ -1,0 +1,42 @@
+\begin{algorithmbox}\nospacing
+  \begin{algo}[Epsilon Greedy Learning]\label{algorithm:epsilon_greedy_learning}\leavevmode
+    \begin{algorithmic}[1]
+      \For{$t=1,\ldots,T$}
+        \State Pick next action
+        \begin{align*}
+          \action_{t}=
+            \begin{cases}
+              \argmax_{\action}\Qfun_{t}(\action)&\text{with probability }\epsilonc_{t}\\
+              \text{random }\action&\text{with probability }1-\epsilonc_{t}\\
+            \end{cases}
+        \end{align*}
+    \EndFor
+    \end{algorithmic}
+  \end{algo}
+\end{algorithmbox}
+\begin{corbox}\nospacing
+  \begin{cor}[Necessary Condition for Convergence]\label{cor:epsilon_greedy_necessary_condition_for_convergence}
+    If the sequence $\epsilonc_{t}$ satisfies the \textit{Robbins Monro} (RM) conditions
+    \begin{align}
+      \sum_{t}\epsilonc_{t}<\infty,&&\sum_{t}\epsilonc_{t}^{2}<\infty&&(\text{i.e. } \epsilonc_{t}=1/t)
+    \end{align}
+    then \cref{algorithm:epsilon_greedy_learning} converges to an optimal policy with probability one.
+    \todo[inline]{add general definition of RM conditions and sequence}
+  \end{cor}
+\end{corbox}
+\begin{sectionbox}\nospacing
+  \begin{minipage}[t]{0.2\textwidth}
+    \begin{proslist}
+    \item Simple
+    \end{proslist}
+  \end{minipage}
+  \begin{minipage}[t]{0.7\textwidth}
+    \begin{conslist}
+    \item Clearly sub optimal actions are not eliminated fast enough
+    \end{conslist}
+  \end{minipage}
+\end{sectionbox}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../../../../formulary"
+%%% End:

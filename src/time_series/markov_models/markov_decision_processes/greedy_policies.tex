@@ -1,0 +1,61 @@
+\begin{defnbox}\nospacing
+  \begin{defn}[Greedy Policy]\label{defn:mdp_greedy_policy}\leavevmode\\
+    \imp{Assuming} we know $\valfu^{\policy_{t-1}}$ then we could choose a greedy policy:
+    \begin{align}
+      \action^{*}&=\policy_{t}(x)\\[-1\jot]
+      :&=\argmax_{\action\in\Asp}\reward(x,\action)+\gammac\sum_{x'\in\Ssp}\Prob\left(x'|x,\action\right)\valfu^{\policy_{t-1}}\left(x'\right)\nonumber
+    \end{align}
+  \end{defn}
+\end{defnbox}
+\begin{sectionbox}\nospacing
+  \begin{circlelistnosep}
+	\item Given a policy $\policy$ however we can calculate a value function $\valfu^{\policy}$
+    \item Given a value function $\valfu$ we can induce a greedy policy\cref{defn:mdp_greedy_policy} $\policy$ w.r.t.\ $\valfu$
+  \end{circlelistnosep}
+  \vspace{-10pt}
+    \begin{figure}[H]
+    \centering
+    \resizebox{\linewidth}{!}{
+        \begin{tikzpicture}[sloped]
+            \tikzset{
+            box/.style = {
+                shape=rectangle,
+                    draw=attributes,
+                    align=center,
+                    %minimum size={10pt},
+                    text = black,
+                    ultra thick,
+                    minimum height=15mm,
+                    font=\fontsize{6}{6}\selectfont},
+            arrow/.style={
+                color=black,
+                draw=section,
+                thick,
+                -latex,
+                    font=\fontsize{6}{6}\selectfont},
+            }
+            \node[box](V){
+                Value Function $\valfu^{\policy}$\\
+                $\begin{aligned}
+                &\valfu^{\policy}(x)=\reward(x,\policy(x))+\\[-1\jot]
+                &+\gammac\sum_{x'\in\Ssp}\Prob\left(x'|x,\policy(x)\right)\valfu^{\policy}\left(x'\right)
+            \end{aligned}$
+            };
+            \node[box, right = of V](P){
+                Greedy Policy $\policy_{\valfu}$\\
+                $\begin{aligned}
+                &\policy_{\valfu}(x)=\argmax_{\action\in\Asp}\reward(x,\action)+\\[-1\jot]
+                &+\gammac\sum_{x'\in\Ssp}\Prob\left(x'|x,\action\right)\valfu^{\policy}\left(x'\right)
+            \end{aligned}$
+            };
+            \draw[arrow, rounded corners=3mm](V.north) -- +(0,0.5) -| node[above, pos=0.25]{Induces Policy} (P);
+            \draw[arrow, rounded corners=3mm](P.south) -- +(0,-0.5) -| node[below, pos=0.25]{Induces Value Function} (V);
+            \end{tikzpicture}
+        }
+    \end{figure}
+\end{sectionbox}
+%%% TeX-command-extra-options: "-shell-escape"
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../../../../../formulary"
+%%% End:

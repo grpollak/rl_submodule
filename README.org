@@ -1,0 +1,21 @@
+* Python Cheat Cheat
+	This is my LaTeX gernal python formulary that can be used as appendex to 
+	other formularies.
+** Adding it as a submodule:
+#+BEGIN_SRC bash
+    cd <path to formulary/ folder>
+    git submodule add git@gitlab.ethz.ch:formularies/python/python_submodule.git
+#+END_SRC
+** In your formulary add
+#+BEGIN_SRC latex
+\newpage
+\section*{Math Background}
+	\input{python_submodule/python.tex}
+#+END_SRC
+*** In order to include figures add to graphicspath
+#+BEGIN_SRC latex
+\graphicspath{
+    ...
+    {python_submodule/figures/}
+}
+#+END_SRC

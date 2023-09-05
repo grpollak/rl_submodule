@@ -1,0 +1,36 @@
+\begin{algorithmbox}\nospacing
+  \begin{algo}[Policy Iteration]\label{algorithm:policy_iteration}\leavevmode
+    \begin{algorithmic}[1]
+      \item[] \imp{Initialize}: Random Policy: $\policy$
+        \While{Not converged $t=t+1$}
+        \State Compute $\valfu^{\policy_{t}}(x)$
+        \begin{align*}
+          \valfu^{\policy_{t}}(x)=
+          \reward(x,\policy(x))+\gammac\sum_{x'\in\Ssp}\Prob\left(x'|x,\policy_{t}(x)\right)\valfu^{\policy_{t}}\left(x'\right)
+        \end{align*}
+        \State Compute greedy policy $\policy_{G}$:
+        \begin{align*}
+          \policy_{G}(x)=\argmax_{\action\in\Asp}
+          \reward(x,\action)+\gammac\sum_{x'\in\Ssp}\Prob\left(x'|x,\action\right)\valfu^{\policy_{t}}\left(x'\right)
+        \end{align*}
+        \State Set $\policy_{t+1}\leftarrow\policy_{G}$
+        \EndWhile
+    \end{algorithmic}
+  \end{algo}
+\end{algorithmbox}
+\begin{sectionbox}[\Cref{algorithm:policy_iteration}]\nospacing
+ \begin{proslist}
+      \item Monotonically improves $\valfu^{\policy_{t}}\geq\valfu^{\policy_{t-1}}$
+      \item is guaranteed to converge to an optimal policy/solution $\policy^{*}$ in
+      polynomial \textit{\#iterations}: $\bigO*{\frac{n^{2}m}{1-\gammac}}$
+ \end{proslist}
+ \begin{conslist}
+   \item Complexity \textit{per iteration} requires to evaluate the policy $\valfu^{\policy}$ which
+   requires us to solve a linear system.
+ \end{conslist}
+\end{sectionbox}
+%%% TeX-command-extra-options: "-shell-escape"
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../../../../../formulary"
+%%% End:

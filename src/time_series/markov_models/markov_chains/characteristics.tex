@@ -1,0 +1,69 @@
+\begin{defnbox}\nospacing
+  \begin{defn}[\newline Time-homogeneous\bslash Stationary Markov Chain]\label{defn:time-homogeneous_stationary_markov_chain}\leavevmode\\
+    are markov chains\cref{defn:markov_chain} where the transition probability is independent of time:
+    \begin{align*}
+      \prob_{\idxj\idxi}=\Prob\left(X_{t}=s_{\idxj}|X_{t-1}=s_{\idxi}\right)=\Prob\left(X_{t-\tauc}=s_{\idxj}|X_{t-\tauc}=s_{\idxi}\right)
+    \end{align*}
+    \begin{flalign}
+      &&\forall\tauc\in\N_{0}\label{eq:time-homogeneous_stationary_markov_chain}
+    \end{flalign}
+  \end{defn}
+\end{defnbox}
+\begin{corbox}\nospacing
+  \begin{cor}[\hfill\tc{black}{$\transitionmatrix$\newline Transition Matrices of Stationary MCs}]\label{cor:transition_matrices_of_stationary_mcs}\leavevmode\\
+    Transition matrices of time-homogeneous markov chain are constant/time independent:
+    \begin{align}
+      \transitionmatrix(t)=\transitionmatrix
+    \end{align}
+  \end{cor}
+\end{corbox}
+\begin{defnbox}\nospacing
+  \begin{defn}[Aperiodic Makrov Chain]\label{defn:aperiodic_makrov_chain}
+    Is a markov chain where all states are aperiodic:
+    \begin{align*}
+      \gcd\{\idxn>0:\prob^{(\idxn)}_{\idxi\idxi}=\Prob \left(X_{n}=s_{\idxi}\mid X_{0}=s_{\idxi}\right)>0\}=1
+    \end{align*}
+    \begin{flalign}
+      &&\forall \idxi\in \left\{1,\ldots,n\right\}
+    \end{flalign}
+  \end{defn}
+\end{defnbox}
+\begin{defnbox}\nospacing
+  \begin{defn}[Irreducable Markov Chain]\label{defn:irreducable_markov_chain}
+    Is a Markov chain that has only \textit{communicating states}\cref{defn:communicating_states}:
+    \begin{align}
+      s_{\idxj}\leftrightarrow s_{\idxi}&&\forall\idxi,\idxj\in \left\{1,\ldots n\right\}
+    \end{align}
+    \begin{itemizenosep}
+      \item $\implies$ no sinks\cref{defn:absorbing_state}
+      \item $\implies$ every state can be reached from every other state
+    \end{itemizenosep}
+  \end{defn}
+\end{defnbox}
+\begin{corbox}\nospacing
+  \begin{cor}
+    An \textit{irreducable}\cref{defn:irreducable_markov_chain} markov chain is automatically \textit{apperiodic}\cref{defn:aperiodic_makrov_chain} if it has at least one aperiodic state\cref{defn:aperiodic_state} $\iff$ \textit{ergodic}\cref{defn:ergodic_markov_chain}.
+  \end{cor}
+\end{corbox}
+\begin{corbox}\nospacing
+  \begin{cor}
+    A markov chain is \textit{not-irreducable} if there exist two states with different periods.
+  \end{cor}
+\end{corbox}
+\begin{defnbox}\nospacing
+  \begin{defn}[\hfill\normalfont{\tc{black}{[\cref{example:defn:ergodic_markov_chain}]}}\newline \textbf{Ergodic Markov Chain}]\label{defn:ergodic_markov_chain}
+    A finite markov chain is ergodic if there exist some number $\idxN$ s.t.\ any
+    state $s_{\idxj}$ can be reached from any other state $s_{\idxi}$ in any number of steps less or equal to a $\idxN$.\\
+    $\Rightarrow$ a markov chains is ergodic if it is:
+    \begin{circlelist}
+      \item \textit{Irreducable}\cref{defn:irreducable_markov_chain}
+      \item \textit{Aperiodic}\cref{defn:aperiodic_makrov_chain}
+    \end{circlelist}
+  \end{defn}
+\end{defnbox}
+\begin{corbox}\nospacing
+  \begin{cor}[Stationary Distribution]\label{cor:distribution_of_ergodic_markov_chains}
+    An erdodic markov chain has a \textit{unique} stationary distribution\cref{defn:markov_chain_stationary_distribution}
+    and converges to it starting from any initial state $q_{0}\left(s_{\idxi}\right)$
+  \end{cor}
+\end{corbox}

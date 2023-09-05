@@ -1,0 +1,61 @@
+\begin{sectionbox}\nospacing
+  POMDPs can be converted into \textit{belief state}\cref{defn:pomdp_believe} MDPs\cref{defn:markov_decision_process_mdp}
+  by introducing a \textit{belief state space} $\Bsp$.
+\end{sectionbox}
+\begin{defnbox}\nospacing
+  \begin{defn}[History\hfill\tcblack{$H_{t}$}]\label{defn:pomdp_history}\leavevmode\\
+    Is a sequence of actions, observations and rewards:
+    \begin{align*}
+      H_{t}=\left\{\left\{\action_{0},\observation_{0},\reward_{0}\right\},\ldots,\left\{\action_{0},\observation_{0},\reward_{0}\right\}\right\}
+    \end{align*}
+  \end{defn}
+\end{defnbox}
+\begin{defnbox}\nospacing
+  \begin{defn}[Belief State Space\hfill\tcblack{$\Bsp$}]\label{defn:belief_state_space}
+    Is a $\abs{\Ssp}-1$ dimensional simplex or ($\abs{S}$-dimensional probability vector\cref{defn:probablistic_vectors})
+    whose elements $\belief$ are probabilities:
+    \begin{align}
+      \Bsp=\Delta(\abs{\Ssp})=\left\{\belief_{t}\in\left[0,1\right]^{\abs{\Ssp}}\Big|\sum_{x=1}^{n}\belief_{t}(x)=1\right\}
+    \end{align}
+  \end{defn}
+\end{defnbox}
+\begin{defnbox}\nospacing
+  \begin{defn}[Belief State\hfill\tcblack{$\belief_{t}\in\Bsp$}]\label{defn:belief_state}
+    Is a probability distribution over the states $\Ssp$ conditioned on the history $H_{t}$\cref{defn:pomdp_history}.
+  \end{defn}
+\end{defnbox}
+\subsubsection{Transition Model}\label{subsubsec:transition_model}
+\begin{defnbox}\nospacing
+  \begin{defn}[\hfill\proofref{proof:defn:pomdp_state_update}\newline POMDP State\bslash Posterior Update]\label{defn:pomdp_state_update}
+    \begin{align}
+      \belief_{t+1}(\state_{\idxi})=&\Prob(X_{t+1}=\state_{\idxi}|Y_{t+1}=\observation_{\idxk})\nonumber\\[-1\jot]
+      =&\frac{1}{Z}\ul{\Prob(Y_{t+1}=\observation_{\idxk}|X_{t+1}=\state_{\idxi},\action_{t})}\nonumber\\[-1\jot]
+      &\cdot\sum_{\mathclap{\state_{\idxj}\in Pa(\state_{\idxi})}}\belief_{t}(\state_{\idxj})\Prob(X_{t+1}=\state_{\idxi}|X_{t}=\state_{\idxj},\action_{t})
+    \end{align}
+  \end{defn}
+\end{defnbox}
+\begin{defnbox}\nospacing
+  \begin{defn}[Stochastic Observation Model]\label{defn:observation_model}
+    \begin{align}
+      \ul{\Prob(Y_{t+1}=\observation_{\idxk}|\belief_{t},\action_{t})}=
+      \sum_{\state_{\idxi}\in\Ssp}\belief_{t}(\state_{\idxi})\Prob(Y_{t+1}=\observation_{\idxk}|X_{t}=\state_{\idxi},\action_{t})
+    \end{align}
+  \end{defn}
+\end{defnbox}
+\subsubsection{Reward Function}\label{subsubsec:reward_function}
+\begin{defnbox}\nospacing
+  \begin{defn}[POMDP Reward Function]\label{defn:pomdp_reward_function}
+    \begin{align}
+        \reward(\belief_{t},\action_{t})=\sum_{\state_{\idxj}\in\Ssp}\belief_{t}(\state_{\idxi})r(\state_{\idxi},\action_{t})
+    \end{align}
+  \end{defn}
+\end{defnbox}
+\begin{notebox}[Note]\nospacing
+  For finite horizon $T$, the set of reachable belief states is finite however
+  exponential in $T$.
+\end{notebox}
+\todo[inline]{add defintion of simplex to math appendix which is basically this.}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../../../../../formulary"
+%%% End:

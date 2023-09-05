@@ -1,0 +1,97 @@
+\begin{defnbox}\nospacing
+  \begin{defn}[\hfill\proofref{proof:defn:mdp_value_function}
+    \newline Value Iteration]\label{defn:value_iteration}
+    \begin{align}
+      \valfu^{\policy}(x)&=\valfu[J](\policy|X_{0}=x)\label{eq:value_function_value_iterration}\\[-1\jot]
+      &=\Expect_{x'|x,\policy(x)}\left[\reward(x,\policy(x))+\gammac\valfu^{\policy}(x')\right]\nonumber\\[-1\jot]
+      &=\reward(x,\policy(x))+\gammac\Expect_{x'|x,\policy(x)}\left[\valfu^{\policy}(x')\right]\nonumber\\[-1\jot]
+      &=\boxed{\reward(x,\policy(x))+\gammac\sum_{x'\in\Ssp}\Prob\left(x'|x,\policy(x)\right)\valfu^{\policy}\left(x'\right)}\nonumber
+    \end{align}
+    We can now write this for all possible initial states as:
+    \begin{align}
+      \vec{\valfu}^{\policy}=\vec{\reward}^{\policy}+\gammac\transitionmatrix^{\policy}\vec{\valfu}^{\policy}
+      &&\iff&&\left(\vec{I}-\gammac\transitionmatrix^{\policy}\right)\vec{\valfu}^{\policy}=\vec{\reward}^{\policy}
+      \label{eq:value_function_lse}
+    \end{align}
+    with:
+    \begin{align*}
+      &\vec{\valfu}^{\policy}=\bmat{\valfu^{\policy}\left(s_{1}\right)\\ \cdots\\ \valfu^{\policy}\left(s_{\idxn}\right)}&&
+      \vec{\reward}^{\policy}=\bmat{\reward^{\policy}\left(s_{1},\policy(s_{1})\right)\\ \cdots\\ \reward^{\policy}\left(s_{\idxn},\policy(s_{\idxn})\right)}
+    \end{align*}
+    \scalematho[.9]{
+    \begin{align*}
+     \transitionmatrix^{\policy}=\bmat{\Prob\left(s_{\idxi[1]}|s_{\idxj[1]},\policy(s_{\idxj[1]})\right) & \Prob\left(s_{\idxi[2]}|s_{\idxj[1]},\policy(s_{\idxj[1]})\right)&\Cdots&\Prob\left(s_{\idxi[n]}|s_{\idxj[1]},\policy(s_{\idxj[1]})\right)\\
+      \Prob\left(s_{\idxi[1]}|s_{\idxj[2]},\policy(s_{\idxj[2]})\right) & \Prob\left(s_{\idxi[2]}|s_{\idxj[2]},\policy(s_{\idxj[2]})\right)&\Cdots&\Prob\left(s_{\idxi[n]}|s_{\idxj[2]},\policy(s_{\idxj[2]})\right)\\
+      \Vdots                  & \Vdots                & \Ddots      & \Vdots         \\
+      \Prob\left(s_{\idxi[1]}|s_{\idxj[n]},\policy(s_{\idxj[n]})\right) & \Prob\left(s_{\idxi[2]}|s_{\idxj[n]},\policy(s_{\idxj[n]})\right)&\Cdots&\Prob\left(s_{\idxi[n]}|s_{\idxj[n]},\policy(s_{\idxj[n]})\right)\\
+      }
+    \end{align*}
+    }
+  \end{defn}
+\end{defnbox}
+\subsubsubsection{Direct Mehtods}
+\begin{corbox}\nospacing
+  \begin{cor}[LU-decomposition\hfill$\bigO{\idxn^{3}}$]\leavevmode\\
+    The linear system from \cref{eq:value_function_lse}:
+    \begin{align}
+      \left(\vec{I}-\gammac\transitionmatrix^{\policy}\right)\vec{\valfu}^{\policy}=\vec{\reward}^{\policy}
+    \end{align}
+    can be solved \textit{directly} using Gaussian elimination in polynomial time $\bigO{n^{3}}$.
+  \end{cor}
+\end{corbox}
+\begin{notebox}[Note -- invertebility]\nospacing
+  If $\gammac<1$ then $\left(\vec{I}-\gammac\transitionmatrix^{\policy}\right)$ is full-rank/invertible as $\text{EVs}(\transitionmatrix^{\policy})\leq1$.
+\end{notebox}
+\subsubsubsection{Fixed Point Iteration}
+\begin{corbox}\nospacing
+  \begin{cor}[Fixed-Point Iteration\hfill$\bigO{\idxn\cdot\abs{\Ssp}}$]\leavevmode\\
+    The linear system from \cref{eq:value_function_lse} can be solve
+    using \textit{fixed-point iteration}\cref{defn:fixed_point_iteration} in at most $\bigO{\idxn\cdot\abs{\Ssp}}$
+    (if every state $s_{\idxi}$ is connected to every other state $s_{\idxj}\in\Ssp$)
+  \end{cor}
+\end{corbox}
+\begin{algorithmbox}\nospacing
+  \begin{algo}[Fixed Point Iteration]\leavevmode
+    \begin{algorithmic}[1]
+      \item[] \imp{Input}: Inital Guess: $\valfu_{0}^{\policy}\eqs{\text{i.e.}}0$
+        \For{$t=1,\ldots,T$}
+        \State Use the fixed point method:
+        \begin{align}
+          \vec{\valfu}_{t}^{\policy}=\phic\vec{\valfu}_{t}^{\policy}=\vec{\reward}^{\policy}+\gammac\transitionmatrix^{\policy}\vec{\valfu}_{t-1}^{\policy}
+        \end{align}
+        \EndFor
+    \end{algorithmic}
+  \end{algo}
+\end{algorithmbox}
+\begin{corbox}\nospacing
+  \begin{cor}[\newline Policy Iterration Contraction\hfill\proofref{proof:cor:policy_iterration_fixed_point_iteration_mdp}]\label{cor:policy_iterration_fixed_point_iteration_mdp}\leavevmode\\
+    Fixed point iteration of policy iteration is a contraction\cref{defn:contraction} that leads to a fixed point $\valfu^{\policy}$ with a rate depending on the discount factor $\gammac$.
+    \begin{align}
+      \norm{\valfu_{t}^{\policy}-\valfu^{\policy}}&=\norm{\phic\valfu_{t-1}^{\policy}-\phic\valfu^{\policy}}\nonumber\\[-1\jot]
+      &\leq\gammac\norm{\valfu_{t-1}^{\policy}-\valfu^{\policy}}=\gammac^{t}\norm{\valfu_{0}^{\policy}-\valfu^{\policy}}
+    \end{align}
+  \end{cor}
+\end{corbox}
+\begin{explanationbox}
+  \begin{explanation}\leavevmode
+    \begin{itemizenosep}
+      \item $\gammac\downarrow$: the less we plan ahead/the smaller we choose $\gammac$ the shorter it takes to converge.
+      But on the other hand we only care greedily about local optima and might miss global optima.
+      \item $\gammac\uparrow$: the more we plan ahead/the larger we choose $\gammac$ the longer it takes to converge
+      but we will explore all possibilities.
+      But for to large $\gammac$ we will simply keep exploring without sticking to a optimal poin
+    \end{itemizenosep}
+  \end{explanation}
+\end{explanationbox}
+\begin{notebox}[Note contraction]\nospacing
+  For a contraction:
+  \begin{itemizenosep}
+    \item A unique fixed point exists
+    \item We converge to the fixpoint
+  \end{itemizenosep}
+\end{notebox}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../../../../../formulary"
+%%% TeX-command-extra-options: "-shell-escape"
+%%% End:

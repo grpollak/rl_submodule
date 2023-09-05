@@ -1,0 +1,24 @@
+\begin{defnbox}\nospacing
+  \begin{defn}[Trajectory\hfill\tcblack{$\tauc$}]\label{defn:trajectory}\leavevmode\\
+    Is a set of consecutive 3-tuples of states, actions and rewards:
+    \begin{align}
+      \tauc=\left\{\state_{t},\action_{t},\reward_{t}\right\}&&t=1,\ldots,\tauc
+    \end{align}
+  \end{defn}
+\end{defnbox}
+\begin{defnbox}\nospacing
+  \begin{defn}[Episodic Learning]\label{defn:episodic_learning}
+    Is a setting where we generate multiple $\idxK$-episodes of different trajectories
+    $\left\{\tauc^{(\idxk)}\right\}_{\idxi=1}^{\idxK}$ from which the agent can learn.
+  \end{defn}
+\end{defnbox}
+\begin{explanationbox}\nospacing
+  \begin{explanation}
+    For each episode the agent starts in a random state and follows a policy.
+  \end{explanation}
+\end{explanationbox}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../../../formulary"
+%%% End:

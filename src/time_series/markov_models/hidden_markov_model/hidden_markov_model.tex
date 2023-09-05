@@ -1,0 +1,39 @@
+\begin{defnbox}\nospacing
+  \begin{defn}[\hfill\tc{black}{$\left(\Ssp,\Asp,\Osp,\transitionprob,\emissionProb\right)$}
+    \newline Hidden Markov Model \blackrb{HMM}]\label{defn:hidden_markov_model_hmm}\leavevmode\\
+    Is a Markov Chain\cref{defn:markov_chain} with hidden/latent states $S_{\idxj}$ that are only partially observable
+    by noisy/indirect observations\cref{defn:markov_observations}:
+    It is characterized by the 5-tuple of:
+    \begin{circlelistnosep}
+        \item States\cref{defn:markov_states}\hfill$\Ssp=\left\{s_{1},\ldots,s_{\idxn}\right\}$
+        \item Actions\cref{defn:markov_actions}\hfill$\Asp/\Asp_{s_{\idxj}}=\left\{\action_{1},\ldots,\action_{\idxm}\right\}$
+        \item Observations\cref{defn:markov_observations}\hfill$\Osp/\Osp_{s_{\idxj}}=\left\{\observation_{1},\ldots,\observation_{\idxm}\right\}$
+        \item Transition Probabilities\cref{defn:markov_transition_probability}\hfill$\prob\left(s_{\idxi},s_{\idxj}\right)$
+        \item Emission/Output Probabilities\cref{defn:output_probabilities}\hfill$\emissionprob_{\idxi\idxj}(t)$
+    \end{circlelistnosep}
+        \centering{
+            \resizebox{\linewidth}{!}{\input{rl_submodule/src/time_series/markov_models/hidden_markov_model/figures/tikz/hmm.tex}}
+        }
+  \end{defn}
+\end{defnbox}
+\begin{defnbox}\nospacing
+  \begin{defn}[Observations\hfill\tc{black}{$\Osp=\left\{\observation_1,\ldots,\observation_{\idxl}\right\}$}]\label{defn:markov_observations}\leavevmode\\
+    Are indirect or noisy observations that are related to the true states $s_{\idxj}$.
+  \end{defn}
+\end{defnbox}
+\begin{defnbox}\nospacing
+  \begin{defn}[\newline Emission\bslash{} Output Probabilities\hfill$\tc{black}{\emissionprob_{\idxi\idxj}(t)}$]\label{defn:output_probabilities}\leavevmode\\
+    Given a state $X_{t}=s_{\idxi}$ the output probability is the probability of the output random variable $Y_{t}$ to be in state $\observation_{\idxj}$:
+    \begin{align}
+      \emissionprob_{\idxi\idxj}(t)=\Prob\left(Y_{t}=\observation_{\idxj}|X_{t}=s_{\idxi}\right)&&
+      \begin{cases}
+        &\forall o_{\idxi}\in\Osp\\
+        &\forall s_{\idxj}\in\Ssp
+      \end{cases}\label{eq:emission_output_probability}
+    \end{align}
+  \end{defn}
+\end{defnbox}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../../../../../formulary"
+%%% End:

@@ -1,0 +1,20 @@
+\begin{formulabox}\nospacing
+  \begin{formula}[Estimating Transitions and Rewards]
+  Given a data set $D=\left\{\left(\xvec_{0},\action_{0},\reward_{0},\xvec_{1}\right),\left(\xvec_{1},\action_{1},\reward_{1},\xvec_{2}\right),\ldots\right\}$
+  we estimate the transitions and rewards using a categorical distribution\cref{defn:multinoulli_categorical_distribution}:
+  \begin{align}
+    N_{\state_{\idxi}|\state_{\idxj},\action}&:=\sum_{\idxk=1}^{t}\deltac_{\left(X_{\idxk+1}=\state_{\idxi}|X_{\idxk}=\state_{\idxj},A_{\idxk}=\action\right)}\\[-1\jot]
+    N_{\state_{\idxj},\action}&:=\sum_{\idxk=1}^{t}\deltac_{\left(X_{\idxk}=\state_{\idxj},A_{\idxk}=\action\right)}
+  \end{align}
+  \begin{align}
+    \prob_{\action}\left(s_{\idxi},s_{\idxj}\right)&\approx\frac{N_{\state_{\idxi}|\state_{\idxj},\action}}{N_{\state_{\idxj},\action}}\label{eq:estimating_transitions}
+    \\[-1\jot]
+    \reward(\state_{\idxi},\action)&\approx\frac{1}{N_{\state_{\idxi},\action}}\sum_{\idxk=1}^{t}
+                                     \deltac_{\left(X_{\idxk}=\state_{\idxi},A_{\idxk}=\action\right)}\reward\left(X_{\idxk},A_{\idxk}\right)\label{eq:estimating_rewards}
+  \end{align}
+  \end{formula}
+\end{formulabox}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../../../../formulary"
+%%% End:

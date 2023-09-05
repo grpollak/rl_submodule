@@ -1,0 +1,30 @@
+\begin{sectionbox}\nospacing
+  Now we are working with an \textit{unknown} MDP\cref{defn:markov_decision_process_mdp} meaning that:
+  \begin{circlelistnosep}
+	\item we do no longer know the transition model\cref{defn:markov_decision_process_transition_probability}
+    \item We do no longer know the reward function
+    \item We might not even know all the states
+  \end{circlelistnosep}
+  \imp{However} we can observe them when taking steps.
+\end{sectionbox}
+\begin{notebox}[Note]\nospacing
+  \begin{itemizenosep}
+    \item Reinforcement learning is different than supervised learning as the data is no longer i.i.d.\ (data depends on previous action).
+    \item Need to do exploration vs exploitation in order to learn policy and reward functions.
+  \end{itemizenosep}
+\end{notebox}
+\begin{defnbox}\nospacing
+  \begin{defn}[Agent]\label{defn:agent}\leavevmode\\
+    Is the \textit{learner}/\textit{decision maker} of our \textit{unknown} MDP.
+  \end{defn}
+\end{defnbox}
+\begin{defnbox}\nospacing
+  \begin{defn}[Environment]\label{defn:environment}
+    Is the representation of the world in which our agents acts.
+  \end{defn}
+\end{defnbox}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../../../formulary"
+%%% End:

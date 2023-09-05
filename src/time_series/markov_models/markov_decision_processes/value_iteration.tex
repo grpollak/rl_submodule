@@ -1,0 +1,61 @@
+\begin{defnbox}\nospacing
+  \begin{defn}[Value to Go\hfill\tc{black}{$\valfu_{t}(x)$}]\label{defn:value_to_go}\leavevmode\\
+    Is the maximal expected reward if we \textit{start} in state $x$ and have $t$ time steps to go.
+  \end{defn}
+\end{defnbox}
+\begin{algorithmbox}
+\begin{algo}[Value Iteration\hfill\proofref{proof:algorithm:value_iteration}]\label{algorithm:value_iteration}\leavevmode
+    \begin{algorithmic}[1]
+      \item[] \imp{Initialize}: $\valfu_{0}(x)=\max_{\action\in\Asp}\reward(x,\action)$
+        \For{$t=1,\ldots,\infty$}
+        \State Compute:\leavevmode\\
+        \scalematho[0.99]{
+        \begin{align*}
+          \valfu[Q]_{t}(x,\action)=
+          \reward(x,\action)+
+          \gammac\sum_{x'\in\Ssp}\Prob\left(x'|x,\action\right)\valfu_{t-1}\left(x'\right)&&
+          \begin{aligned}
+            \forall\action\in\Asp\\
+            \forall x\in\Ssp
+          \end{aligned}
+        \end{align*}
+        }
+        \State for all $x\in\Ssp$ let:
+        \begin{align*}
+          \valfu_{t}(x)=\max_{\action\in\Asp}\valfu[Q]_{t}(x,\action)
+        \end{align*}
+        \If{$\max_{x\in\Ssp}\abs{\valfu_{t}(x)-\valfu_{t-1}(x)}\leq\epsilonc$}
+        \State break
+        \EndIf
+        \EndFor
+        \State Choose greedy policy $\policy_{\valfu_{t}}$ w.r.t.\ $\valfu_{t}$
+    \end{algorithmic}
+  \end{algo}
+\end{algorithmbox}
+\begin{corbox}\nospacing
+  \begin{cor}[\hfill\proofref{proof:algorithm:value_iteration_cvg}\newline Value Iterration Contraction]\label{algorithm:value_iteration_cvg}\leavevmode\\
+    \Cref{algorithm:value_iteration} is guaranteed to converge to a $\epsilonc$ optimal policy:
+    \begin{align}
+     \norm*{\left(\valfu_{t}-\valfu^{*}\right)}_{\infty}&\leq\gammac^{t}\norm*{\left(\valfu_{0}-\valfu^{*}\right)}_{\infty}
+    \end{align}
+    \begin{align*}
+    \implies t\approx& \ln\frac{\gammac}{\epsilonc}\norm*{\valfu_{0}-\valfu^{*}}_{\infty}&&\text{for}&&\norm*{\left(\valfu_{t}-\valfu^{*}\right)}_{\infty}\leq\epsilonc
+    \end{align*}
+  \end{cor}
+\end{corbox}
+\begin{sectionbox}[\Cref{algorithm:value_iteration}]\nospacing
+ \begin{proslist}
+      \item Finds $\epsilonc$-optimal solution in polynomial \textit{\#iterrations} $\bigO{\ln\frac{1}{\epsilonc}}$\cref{algorithm:value_iteration_cvg}.
+      \item Complexity \textit{per iteration}
+      requires us to solve a linear system $\bigO{m\cdot n\cdot s}=\bigO{\abs{\Asp}\cdot\abs{\Ssp}\cdot s}$ where
+      $s$ is the number of states we can reach.\\
+      For small $s$ and small $m$ we are roughly linear w.r.t.\ the states $\bigO{n}=\bigO{\abs{\Ssp}}$
+    \end{proslist}
+ \begin{conslist}
+   \item Only $\epsilonc$-optimal solution.
+ \end{conslist}
+\end{sectionbox}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../../../../../formulary"
+%%% End:

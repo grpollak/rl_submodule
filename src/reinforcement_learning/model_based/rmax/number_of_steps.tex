@@ -1,0 +1,27 @@
+\begin{propositionbox}\nospacing
+  \begin{proposition}[\hfill\proofref{proof:proposition:number_of_samples_to_bound_reward}\newline Number of Samples to bound Reward]\label{proposition:number_of_samples_to_bound_reward}
+   \begin{alignat}{4}
+     \Prob\left(\widehat{\reward}(\state,\action)-\reward(\state,\action)\leq\epsilonc\right)\geq1-\deltac&&\iff&&
+      n\in\bigO \left(\frac{R_{\max^{2}}}{\epsilonc^{2}}\log\frac{1}{\deltac}\right)
+   \end{alignat}
+  \end{proposition}
+\end{propositionbox}
+\begin{theorembox}\nospacing
+  \begin{theorem}\label{theorem:rmax_exploration_vs_explotation}
+    Every $T$ timesteps, with high probability, $R_{\max}$ either:
+    \begin{itemizenosep}
+      \item Obtain near optimal reward, or
+      \item Visits at leas one unkown state-action pair
+    \end{itemizenosep}
+  \end{theorem}
+\end{theorembox}
+\begin{theorembox}\nospacing
+  \begin{theorem}[Performance of R-max]\label{theorem:performance_of_r-max}
+    With probability $\deltac-1$, $R_{\max}$ will reach an $\epsilonc$-optimal policy in a number of steps that
+    is polynomial in $\abs{\Xsp},\abs{\Asp},T,1/\epsilonc$.
+  \end{theorem}
+\end{theorembox}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../../../../../formulary"
+%%% End:

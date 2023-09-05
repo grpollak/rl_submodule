@@ -1,0 +1,40 @@
+\begin{sectionbox}\nospacing
+  \imp{Assume} we fix a random intial policy $\policy$ and s.t.\ we have $\widehat{\valfu}_{0}^{\policy}(\state_{\idxj})$.\\
+  \imp{Goal}: want to calculate an unknown value function $\valfu^{\policy}$.\\
+  If the reward and the next states are stochastic variables $(R,X)$ we can calculate the reward using\cref{eq:value_function_value_iterration}:
+  \begin{align}
+    \widehat{\valfu}^{\policy}(x_{t})=\Expect_{X_{t+1},R}\left[R+\gammac\widehat{\valfu}^{\policy}(X')|X,\action\right]\label{eq:td_expectation}
+  \end{align}
+  Now assume we observe a single example
+  \begin{align*}
+    (X_{t+1}=\state_{\idxj},\action,\reward, X_{t}=\state_{\idxi})
+  \end{align*} then we can use monte carlos sampling\cref{defn:monte_carlo_integration} with a single sample to approximate the expectation in\cref{eq:td_expectation}:
+  \begin{align*}
+    \widehat{\valfu}_{t+1}^{\policy}(\state_{\idxi})=\reward+\gammac\widehat{\valfu}_{t}^{\policy}(\state_{\idxj})
+  \end{align*}
+  \imp{Problem}: high variance of estimates $\Rightarrow$ average with previous estimate.
+\end{sectionbox}
+\begin{defnbox}\nospacing
+  \begin{defn}[Temporal Difference \rb{TD} Learning]\label{defn:temporal_difference_learning}
+    \begin{align}
+      \widehat{\valfu}(x_{t+1})=(1-\alphac_{t})\widehat{\valfu}(x_{t})+\alphac_{t} \left(\reward+\gammac\widehat{\valfu}(x_{t+1})\right)
+    \end{align}
+  \end{defn}
+\end{defnbox}
+\begin{corbox}\nospacing
+  \begin{cor}[Necessary Condition for Convergence]\label{cor:temporal_difference_necessary_condition_for_convergence}
+    If the learning rate $\alphac_{t}$ satisfies the \textit{Robbins Monro} (RM) conditions
+    \begin{align}
+      \sum_{t}\alphac_{t}<\infty,&&\sum_{t}\alphac_{t}^{2}<\infty&&(\text{i.e. } \alphac_{t}=1/t)
+    \end{align}
+    and all state-action pairs $(\state_{\idxi},\action_{\idxj})$ are chosen infinitely often, then
+    we converge to the correct value function:
+    \begin{align}
+      \Prob\left(\widehat{\valfu}\rightarrow\widehat{\valfu}^{\policy}\right)=1
+    \end{align}
+  \end{cor}
+\end{corbox}
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../../../../formulary"
+%%% End:

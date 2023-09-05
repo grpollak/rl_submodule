@@ -1,0 +1,24 @@
+\begin{proofbox}\nospacing
+  \begin{proof}\label{proof:cor:realization_of_a_markov_chain}\cref{cor:realization_of_a_markov_chain}
+    \begin{align*}
+      \Prob&\left(X_{0}=x_{0},\ldots,X_{N}=x_{N}\right)=\Prob\left(X_{0}=x_{0}\right)\cdot\\[-1\jot]
+           &\cdot\Prob \left(X_{1}=x_{1}|X_{0}=x_{0}\right)\cdot\Prob \left(X_{2}=x_{2}|X_{1}=x_{1},X_{0}=x_{0}\right)\cdot \\[-1\jot]
+           &\cdots\Prob \left(X_{N}=x_{N}|X_{N-1}=x_{N-1},\ldots,X_{0}=x_{0}\right)
+    \end{align*}
+    and then simply use the Markovian property
+  \end{proof}
+\end{proofbox}
+\begin{proofbox}\nospacing
+  \begin{proof}Corollary~\ref{cor:time-homogeneous_markov_transition_probabilities}\label{proof:cor:time-homogeneous_markov_transition_probabilities}
+    \begin{align*}
+      \qvec_{n+1}=\transitionmatrix\qvec_{n}=(\qvec_{n-1}\transitionmatrix)\transitionmatrix=\qvec_{0}\transitionmatrix^{n+1}
+    \end{align*}
+  \end{proof}
+\end{proofbox}
+
+
+%%% TeX-command-extra-options: "-shell-escape"
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../../../../formulary"
+%%% End:

@@ -1,0 +1,52 @@
+\begin{defnbox}\nospacing
+  \begin{defn}[\hfill\tc{black}{$\left(\Ssp,\Asp,\transitionprob_{\action},R_{\action}\right)$}
+    \newline Markov Decision Process \blackrb{MDP}]\label{defn:markov_decision_process_mdp}
+    A markov decision process is a \textit{controlled} markov process/chain with an associated reward,
+    where the transition can by steered by an actions.
+    It is characterized by the 4-tuple of:
+    \begin{circlelistnosep}
+      \item States\cref{defn:markov_states}\hfill$\Ssp=\left\{s_{1},\ldots,s_{\idxn}\right\}$
+      \item Actions\cref{defn:markov_actions}\hfill$\Asp/\Asp_{s_{\idxj}}=\left\{\action_{1},\ldots,\action_{\idxm}\right\}$
+      \item Transition Probabilities\cref{defn:markov_decision_process_transition_probability}\hfill$\prob_{\action}\left(s_{\idxi},s_{\idxj}\right)$
+      \item Rewards\cref{defn:mdp_reward}\hfill$\reward_{\action}(s_{\idxi},s_{\idxj})$
+    \end{circlelistnosep}
+  \end{defn}
+\end{defnbox}
+\begin{defnbox}\nospacing
+  \begin{defn}[\newline Actions\hfill\tc{black}{$\Asp_{s_{\idxi}}=\left\{\action_{1},\ldots,\action_{\idxm}\right\}$}]\label{defn:markov_actions}\leavevmode\\
+    Is the set of possible actions from which we can choose at each state and
+    may depend on the state $s_{\idxj}$ itself.
+  \end{defn}
+\end{defnbox}
+\begin{defnbox}\nospacing
+  \begin{defn}[Transition Probability\hfill$\tc{black}{\prob_{\action}(s_{\idxj},s_{\idxi})(t)}$]\label{defn:markov_decision_process_transition_probability}\leavevmode\\
+    is the probability of a random variable $X_{t}$ in state $s_{\idxi}$ to transition into state $s_{\idxj}$ and depends also
+    on the current action $\action$:
+    \begin{align}
+      \prob_{\action}\left(s_{\idxj},s_{\idxi}\right)&=\prob\left(s_{\idxj}|s_{\idxi},\action\right)
+                                                =\Prob\left(x_{t+1}=s_{\idxj}|x_{t}=s_{\idxi},a_{t}=\action\right)\nonumber\\[-1\jot]
+      &\begin{aligned}
+          &&\forall s_{\idxi},s_{\idxj}\in\Ssp, \forall a\in\Asp
+      \end{aligned}
+      \label{eq:transition_probability_mdp}
+    \end{align}
+  \end{defn}
+\end{defnbox}
+\begin{defnbox}\nospacing
+  \begin{defn}[Reward\hfill\tc{black}{$\reward_{\action}(s_{\idxi},s_{\idxj})$}]\label{defn:mdp_reward}\leavevmode\\
+    is a function or probability distribution that measures the immediate reward and may depend on
+    a any subset of $\left(x_{t+1},x_{t},\action\right)$:
+    \begin{align}
+      \left(x_{t+1},x_{t},\action\right)\mapsto R_{t+1}\in\Reward\subset\R
+    \end{align}
+  \end{defn}
+\end{defnbox}
+\begin{sectionbox}\nospacing
+  Markov decision processes require us to plan ahead. This is because the immediate reward\cref{defn:mdp_reward},
+  that we obtain by greedily picking the best action may result in non-optimal local actions.
+\end{sectionbox}
+%%% TeX-command-extra-options: "-shell-escape"
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../../../../../formulary"
+%%% End:

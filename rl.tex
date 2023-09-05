@@ -1,0 +1,94 @@
+ \appendtographicspath{
+          {figures/rl_submodule/}
+          {rl_submodule/src/time_series/markov_models/markov_chains/figures/}
+          }
+\newpage
+\section*{Time Series}\label{sec:time_series}
+  \section{State Space Models}\label{sec:markov_chains}
+    \input{rl_submodule/src/time_series/state_space_models/state_space_models.tex}
+  \section{Markov Models}\label{sec:markov_chains}
+    \input{rl_submodule/src/time_series/markov_models/foundations.tex}
+    \subsection{Markov Chains}\label{subsec:markov_chains}
+      \input{rl_submodule/src/time_series/markov_models/markov_chains/markov_chains.tex}
+    \subsubsection{Characteristics of Markov Processes/Chains}\label{subsubsec:name}
+      \input{rl_submodule/src/time_series/markov_models/markov_chains/characteristics.tex}
+    \subsubsection{Types of Markov Chains}\label{subsubsec:types_of_markov_chains}
+      \input{rl_submodule/src/time_series/markov_models/markov_chains/types.tex}
+      \subsubsection{Markov Chain Monte Carlo \rb{MCMC}}\label{subsec:markov_chain_monte_carlo_mcmc}
+      \input{rl_submodule/src/time_series/markov_models/markov_chains/mcmc.tex}
+      \subsection{Proofs}\label{subsec:proofs}
+      \input{rl_submodule/src/time_series/markov_models/proofs.tex}
+      \subsection{Examples}\label{subsec:examples}
+      \input{rl_submodule/src/time_series/markov_models/examples.tex}
+  \section{Hidden Markov Model \rb{HMM}}\label{sec:hidden_markov_model}
+      \input{rl_submodule/src/time_series/markov_models/hidden_markov_model/hidden_markov_model.tex}
+  \section{Markov Decision Processes \rb{MDP}}\label{sec:markov_decision_processes}
+      \input{rl_submodule/src/time_series/markov_models/markov_decision_processes/intro.tex}
+      \subsection{Policies and Values}\label{subsec:policies}
+        \input{rl_submodule/src/time_series/markov_models/markov_decision_processes/policies_and_values.tex}
+      \subsubsection{Calculating the value of $\valfu^{\policy}$}\label{subsubsec:calculating_the_value_of_V}
+        \input{rl_submodule/src/time_series/markov_models/markov_decision_processes/value.tex}
+      \subsubsection{Choosing The Policy}\label{subsubsec:choosing_the_policy}
+        \input{rl_submodule/src/time_series/markov_models/markov_decision_processes/policies.tex}
+      \subsubsubsection{Greedy Policy}\label{subsubsubsec:greedy_policy}
+        \input{rl_submodule/src/time_series/markov_models/markov_decision_processes/greedy_policies.tex}
+        \input{rl_submodule/src/time_series/markov_models/markov_decision_processes/bellman_equation.tex}
+        \subsubsubsection{Policy Iteration}\label{subsubsubsec:policy_iteration}
+          \input{rl_submodule/src/time_series/markov_models/markov_decision_processes/policy_iteration.tex}
+        \subsubsubsection{Value Iteration}\label{subsubsubsec:value_iteration}
+          \input{rl_submodule/src/time_series/markov_models/markov_decision_processes/value_iteration.tex}
+  \section{Partially Observable MDP \rb{POMDP}}\label{sec:partially_observable_markov_decision_processes}
+      \input{rl_submodule/src/time_series/markov_models/partially_observable_markov_decision_processes/partially_observable_markov_decision_processes.tex}
+      \subsection{POMDPs as MDPs}\label{subsec:pomdps_as_mdps}
+        \input{rl_submodule/src/time_series/markov_models/partially_observable_markov_decision_processes/mpds.tex}
+
+  \subsection{Proofs}\label{subsec:proofs}
+      \subsubsection{Markov Decision Processes}
+        \input{rl_submodule/src/time_series/markov_models/markov_decision_processes/proofs.tex}
+      \subsubsection{MDPs}
+        \input{rl_submodule/src/time_series/markov_models/partially_observable_markov_decision_processes/proofs.tex}
+
+
+\newpage
+  \section{Reinforcement Learning}\label{sec:reinforcement_learning}
+      \input{rl_submodule/src/reinforcement_learning/reinforcement_learning.tex}
+      \input{rl_submodule/src/reinforcement_learning/on_policy.tex}
+      \input{rl_submodule/src/reinforcement_learning/off_policy.tex}
+      \input{rl_submodule/src/reinforcement_learning/trajectory.tex}
+      \subsection{Model Based Reinforcement Learning}\label{subsec:model_based_reinforcement_learning}
+        \input{rl_submodule/src/reinforcement_learning/model_based/model_based.tex}
+        \subsubsection{Estimating Transitions and Rewards}\label{subsubsec:estimating_transitions_and_rewards}
+          \input{rl_submodule/src/reinforcement_learning/model_based/estimating.tex}
+        \subsubsection{Choosing the next step}
+          \input{rl_submodule/src/reinforcement_learning/model_based/explotation_vs_exploration.tex}
+          \subsubsection{$\epsilonc_{t}$ Greedy Learning}\label{subsubsec:reinforcement_epsilonc_greedy_algorithm}
+            \input{rl_submodule/src/reinforcement_learning/model_based/epsilon_greedy.tex}
+          \subsubsection{The \tcblack{$R_{\max}$} Algorithm}\label{subsubsec:reinforcement_rmax_algorithm}
+            \input{rl_submodule/src/reinforcement_learning/model_based/rmax/rmax.tex}
+            \subsubsubsection{How many transitions do we need?}\label{subsubsubsec:how_many_transitions_do_we_need?}
+              \input{rl_submodule/src/reinforcement_learning/model_based/rmax/number_of_steps.tex}
+      \vfill\columnbreak
+      \subsection{Model Free Reinforcement Learning}\label{subsec:model_based_reinforcement_learning}
+        \input{rl_submodule/src/reinforcement_learning/model_free/model_free.tex}
+        \subsubsection{Temporal Difference Learning \rb{TD}}\label{subsubsec:temporal_difference_learning_td}
+          \input{rl_submodule/src/reinforcement_learning/model_free/temporal_difference_learning.tex}
+        \subsubsection{Q-Learning}\label{subsubsec:q-learning}
+        \begin{defnbox}\nospacing
+          \begin{defn}[Action Value\bslash Q-Function]\label{defn:action_value_function}
+            \begin{align}
+              Q
+            \end{align}
+          \end{defn}
+        \end{defnbox}
+
+        \subsubsubsection{Policy Gradients}\label{subsubsubsec:policy_gradients}
+        \subsubsubsection{Actor-Critic Methods}\label{subsubsubsec:actor-critic_methods}
+
+      \subsection{Proofs}\label{subsec:proofs}
+        \input{rl_submodule/src/reinforcement_learning/proofs.tex}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-command-extra-options: "-shell-escape"
+%%% TeX-master: "../formulary"
+%%% End:

@@ -1,0 +1,23 @@
+\begin{theorembox}\nospacing
+    \begin{theorem}[Optimality of Policies\hfill\tc{black}{[Bellman]}]\label{theorem:optimality_of_policies}
+    A policy $\policy_{\valfu}$ is optimal if and only if it is greedy w.r.t.\ its induced value function
+    \end{theorem}
+\end{theorembox}
+\begin{defnbox}\nospacing
+  \begin{defn}[Non-linear Bellman Equation]\label{defn:non-linear_bellman_equation_optimal_value}
+    States that the optimal value is given by the action/policy that maximizes the value function \cref{eq:value_function_value_iterration}:
+    \begin{align}
+      \valfu^{*}(x)&=
+     \max_{\action\in\Asp}\left[\reward(x,\action)+\gammac\sum_{x'\in\Ssp}\Prob\left(x'|x,\action\right)\valfu^{*}\left(x'\right)\right]\\[-1\jot]
+      :&=\max_{\action\in\Asp}Q^{*}(x,\action)
+    \end{align}
+  \end{defn}
+\end{defnbox}
+\begin{notebox}[Note]\nospacing
+  This equation is non-linear due to the max in comparison to \cref{eq:value_function_value_iterration}.
+\end{notebox}
+%%% TeX-command-extra-options: "-shell-escape"
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../../../../../formulary"
+%%% End:

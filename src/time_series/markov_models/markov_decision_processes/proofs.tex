@@ -1,0 +1,83 @@
+\begin{proofbox}\nospacing
+  \begin{proof}\cref{defn:mdp_value_function}\label{proof:defn:mdp_value_function}\leavevmode\\
+    \scalematho{
+    \begin{align*}
+      \valfu^{\policy}(x)&=\Expect_{X_{1:\infty}}\left[\sum_{t=0}^{\infty}\gammac^{t}r \left(X_{t},\policy \left(X_{t}\right)\right)\mid X_{0}=x\right]\\[-1\jot]
+      &=\Expect_{\Xvec}\left[\gammac^{0}r \left(X_{0},\policy \left(X_{0}\right)\right)+\sum_{t=1}^{\infty}\gammac^{t}r \left(X_{t},\policy \left(X_{t}\right)\right)\mid X_{0}=x\right]\\[-1\jot]
+      &\eqs{\mathllap{\hspace{3mm}\substack{\gammac^{0}=1\\X_{0}=x}}}r \left(x,\policy \left(x\right)\right)
+          +\Expect_{\Xvec}\left[\sum_{t=1}^{\infty}\gammac^{t}r \left(X_{t},\policy \left(X_{t}\right)\right)\mid X_{0}=x\right]\\[-1\jot]
+      &\eqs{\mathclap{\text{re-index}}}r \left(x,\policy \left(x\right)\right)
+          +\Expect_{\Xvec}\left[\sum_{t=0}^{\infty}\ul{\gammac^{t+1}}r \left(X_{t+1},\policy \left(X_{t+1}\right)\right)\mid X_{0}=x\right]\\[-1\jot]
+      &=r\left(x,\policy \left(x\right)\right)
+        +\ul{\gammac}\Expect_{\Xvec}\left[\sum_{t=0}^{\infty}\ul{\gammac^{t}}r \left(X_{t+1},\policy \left(X_{t+1}\right)\right)\mid X_{0}=x\right]\\[-1\jot]
+      &\hspace{-3mm}\eqs{\text{\hphantom{\cref{law:law_of_iterated_expectation}}}}r\left(x,\policy \left(x\right)\right)\\[-1\jot]
+                         &\hspace{-5mm}+\gammac\Expect_{X_1}\left[\Expect_{X_{2:\infty}}\left[
+                           \sum_{t=0}^{\infty}\gammac^{t}r \left(X_{t+1},\policy \left(X_{t+1}\right)\right)\Bigg|X_{1}=x'
+                           \right]
+                           \Bigg|X_{0}=x\right]\\[-1\jot]
+                         &\hspace{-3mm}\eqs{\text{\cref{law:law_of_iterated_expectation}}}
+                           r\left(x,\policy \left(x\right)\right))\\[-1\jot]
+                           &\hspace{-5mm}+\gammac\sum_{x'\in S}\Prob(x'|x,\policy(x)\Expect_{X_{2:\infty}}\left[\sum_{t=0}^{\infty}\gammac^{t}r \left(X_{t+1},\policy \left(X_{t+1}\right)\right)\Bigg|X_{1}=x'\right]\\[-1\jot]
+      &\hspace{-3mm}\eqs{\text{\cref{eq:time-homogeneous_stationary_markov_chain}}}r\left(x,\policy \left(x\right)\right))\\[-1\jot]
+                         &+\gammac\sum_{x'\in S}\Prob(x'|x,\policy(x)
+                           \ul[ulc1]{\Expect_{X_{2:\infty}}\left[\sum_{t=0}^{\infty}\gammac^{t}r \left(X_{t},\policy \left(X_{t}\right)\right)\Bigg|X_{0}=x'\right]}\\[-1\jot]
+      &\hspace{-3mm}\eqs{\text{\hphantom{\cref{law:law_of_iterated_expectation}}}}r\left(x,\policy \left(x\right)\right)+\gammac\sum_{x'\in S}\Prob\left(x'|x,\policy(x)\right)\ul[ulc2]{\valfu^{\policy}\left(x'\right)}
+    \end{align*}
+    }
+  \end{proof}
+\end{proofbox}
+\begin{proofbox}\nospacing
+  \begin{proof}[\cref{cor:policy_iterration_fixed_point_iteration_mdp}]\label{proof:cor:policy_iterration_fixed_point_iteration_mdp}
+    Consider $\valfu,\valfu'\in\R^{n}$ and let $\phic$:
+    \begin{align*}
+      \phic x:=\reward^{\policy}+\gammac\transitionmatrix^{\policy}x&&\implies&&\phic\valfu^{\policy}=\valfu^{\policy}
+    \end{align*}
+    then it follows:
+   \begin{align*}
+     \norm*{\phic\valfu-\phic\valfu^{'}}&=\norm*{\cancel{\reward^{\policy}}+\gammac\transitionmatrix^{\policy}\valfu-\cancel{\reward^{\policy}}-\gammac\transitionmatrix^{\policy}\valfu'}\\[-1\jot]
+                                        &=\norm*{\gammac\transitionmatrix^{\policy}\left(\valfu-\valfu'\right)}\\[-1\jot]
+     &\stackrel{\text{\cref{eq:cauchy_schwartz_inequality}}}{\leq}\gammac\norm*{\transitionmatrix^{\policy}}\cdot\norm*{\left(\valfu-\valfu'\right)}\\[-1\jot]
+     &\stackrel{\text{i.e.\ $L_{2}$}}{\leq}\gammac\cdot 1\cdot\norm*{\left(\valfu-\valfu'\right)}_{2}
+   \end{align*}
+  \end{proof}
+\end{proofbox}
+\begin{proofbox}\nospacing
+  \begin{proof}\label{proof:algorithm:value_iteration}\cref{algorithm:value_iteration}
+   \begin{align*}
+     \valfu_{0}(x)&=\max_{\action\in\Asp}\reward(x,\action)\\[-1\jot]
+     \valfu_{1}(x)&=\max_{\action\in\Asp}\reward(x,\action)+\gammac\sum_{x'\in\Ssp}\Prob\left(x'|x,\action\right)\valfu_{0}\left(x'\right)\\[-1\jot]
+     \valfu_{t+1}(x)&=\max_{\action\in\Asp}\reward(x,\action)+\gammac\sum_{x'\in\Ssp}\Prob\left(x'|x,\action\right)\valfu_{t}\left(x'\right)
+   \end{align*}
+  \end{proof}
+\end{proofbox}
+\begin{proofbox}\nospacing
+  \begin{proof}\label{proof:algorithm:value_iteration_cvg}\cref{algorithm:value_iteration_cvg}
+   Let $\phic:\R^{n}\mapsto\R^{n}$, with:
+   \begin{align*}
+     \left(\phic\valfu^{*}\right)(x)=Q(x,\action)=\max_{\action}\left[\reward(x,\action)+\gammac\sum_{x'}\Prob\left(x'|x,\action\right)\right]
+   \end{align*}
+     Bellman's \cref{theorem:optimality_of_policies}\hfil$\phic\valfu^{*}=\valfu^{*}$\\
+     and consider $\valfu,\valfu'\in\R^{n}$
+   \begin{align*}
+     \norm*{\phic\valfu-\phic\valfu^{'}}_{\rd{\infty}}&=\max_{x}\abs*{\left(\phic\valfu\right)(x)-(\phic\valfu^{'})(x)}
+     \\[-1\jot]
+     &=\max_{x}\abs*{\max_{\action}\valfu[Q](x,\action)-\max_{\action'}\valfu[Q]'(x,\action')}\\[-1\jot]
+     &\stackrel{\text{\cref{property:maxIdentities}}}{\leq}\max_{x}\max_{\action}\abs*{\valfu[Q](x,\action)-\valfu[Q]'(x,\action)}\\[-1\jot]
+     &\hspace{-1.8cm}=\max_{x,\action}\abs{\cancel{\reward}+\gammac\sum_{x'}\Prob\left(x'|x,\action\right)\valfu(x')-\cancel{\reward}-\gammac\sum_{x'}\Prob\left(x'|x,\action\right)\valfu'(x')}
+     \\[-1\jot]
+      &=\gammac\max_{x,\action}\abs*{\sum_{x'}\Prob\left(x'|x,\action\right)\left(\valfu(x')-\valfu'(x')\right)}\\[-1\jot]
+      &\hspace{-8mm}\stackrel{\text{\cref{eq:cauchy_schwartz_inequality}}}{\leq}
+        \gammac\max_{x,\action}\overbrace{\abs*{\sum_{x'}\Prob\left(x'|x,\action\right)}}^{\leq1}\cdot
+        \abs*{\left(\valfu(x')-\valfu'(x')\right)}\\[-1\jot]
+     &\hspace{-8mm}\leq\gammac\cdot 1\cdot\norm*{\left(\valfu(x')-\valfu'(x')\right)}_{\infty}
+   \end{align*}
+  \end{proof}
+\end{proofbox}
+\begin{notebox}[Note]\nospacing
+  For the policy iteration the calculation was easier as the rewards canceled, however here we have the max.
+\end{notebox}
+%%% TeX-command-extra-options: "-shell-escape"
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../../../../../formulary"
+%%% End:

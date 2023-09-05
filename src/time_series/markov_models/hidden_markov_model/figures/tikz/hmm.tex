@@ -1,0 +1,51 @@
+\documentclass[dvipsnames,table]{standalone}
+
+\input{/home/pollakg/polybox/CSE/master/4th_term/PAI/formulary/formularyETH/colors.cfg}
+\usepackage{/home/pollakg/polybox/CSE/master/4th_term/PAI/formulary/formularyETH/formularyETH_underline}
+\usepackage{/home/pollakg/polybox/CSE/master/4th_term/PAI/formulary/formularyETH/extern/formularyETH_scientific}
+\usepackage{/home/pollakg/polybox/CSE/master/4th_term/PAI/formulary/formularyETH/formularyETH_GeneralPackages}
+\usepackage{/home/pollakg/polybox/CSE/master/4th_term/PAI/formulary/formularyETH/extern/formularyETH_tikz}
+\usepackage{/home/pollakg/polybox/CSE/master/4th_term/PAI/formulary/formularyMacros}
+\usepackage{/home/pollakg/polybox/CSE/master/4th_term/PAI/formulary/rl_submodule/macros/nlu}
+\usepackage{/home/pollakg/polybox/CSE/master/4th_term/PAI/formulary/rl_submodule/macros/nn}
+\usepackage{/home/pollakg/polybox/CSE/master/4th_term/PAI/formulary/rl_submodule/macros/ml}
+\usepackage{/home/pollakg/polybox/CSE/master/4th_term/PAI/formulary/rl_submodule/macros/pac}
+% ======================================================================
+% Tikz
+% ======================================================================
+\begin{document}
+\begin{tikzpicture}[font=\Huge]
+\tikzset{latent style/.style={row 1 column #1/.style={nodes={hidden}}}}
+\tikzset{observation style/.style={row 2 column #1/.style={nodes={output}}}}
+\matrix[matrix of math nodes,
+  column sep=3em,row
+  sep=4.5em,
+  cells={nodes={minimum width=4em,inner sep=0pt}},
+  latent style/.list={2,3,6,5,6,7},
+  observation style/.list={2,3,5,6},
+  column 1/.style={nodes={rectangle,draw=none}},
+  column 5/.style={nodes={rectangle,draw=none}}
+  ] (m) {
+  \textbf{Latent} &
+    X_1 & X_2 &  \cdots & X_{T} &[10ex] X_t & X_{t+1}\\
+  \textbf{Observed} &
+   Y_1 & Y_2 &  \cdots & Y_{T} &[10ex] Y_t\\
+};
+\foreach \X in {2,3,4} {
+  \draw[main edge] (m-1-\X) -- (m-1-\the\numexpr\X+1) node[midway,above]{};
+  \ifnum\X=4
+    \draw[main edge] (m-1-5) -- (m-2-5) node[pos=0.6,left]{};
+  \else
+    \draw[main edge] (m-1-\X) -- (m-2-\X) node[pos=0.6,left]{};
+  \fi
+ }
+ \draw[main edge] (m-1-6) -- (m-1-7) node[pos=0.6, above=3mm]{$\prob_{\idxi\idxj}(t)$};
+ \draw[main edge] (m-1-6) -- (m-2-6) node[pos=0.7,right]{$\emissionprob_{\idxi\idxk}(t)$};
+  \draw[dashed] ([yshift=1ex]m.east) -- ([yshift=1ex]m.east-|m-1-1.east);
+\end{tikzpicture}
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
